@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>MeetingApp/index</title>
+
+    <link rel="icon" href="{% static 'MeetingApp/img/core-img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'MeetingApp/style.css' %}">
+
+ 
+</head>
+
+
+<body >
+
+    <div class="breadcumb-area " >
+        <div class=" bradcumbContent">
+            <h2>Answer quiz</h2>
+        </div>
+	</div>
+
+    <div style="height:300px;">
+    </div>
+
+    <section class="contact-area">
+        <div class="container">
+            <div class="row">
+			
+                <div class="col-12 ">
+                    <div class="contact-content">
+                        <div class="row">                            
+                            <div class="col-12 col-lg">
+                                <div class="contact-form-area wow fadeInUp" data-wow-delay="100ms">
+                                    <form action="{% url 'MeetingApp:answer_quiz' quiz_id %}" method="POST">
+                                        {% csrf_token %}
+                                        {%for question in questions%}
+										<label>{{question.content}}</label>
+                                        <textarea type="text" class="form-control" name="a{{question.number}}" placeholder="enter question here"></textarea>
+                                        {% endfor %}
+                                        <button class="btn academy-btn mt-30" type="submit">submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="{% static 'MeetingApp/js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/plugins/plugins.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/active.js' %}"></script>
+</body>
+
+</html>

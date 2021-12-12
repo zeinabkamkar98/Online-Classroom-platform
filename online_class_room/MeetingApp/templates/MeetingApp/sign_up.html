@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>MeetingApp/SingUp</title>
+
+    <link rel="icon" href="{% static 'MeetingApp/img/core-img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'MeetingApp/style.css' %}">
+
+</head>
+
+<body >
+
+    <div class="breadcumb-area container" >
+        <div class=" bradcumbContent">
+            <h2>SIGN UP</h2>
+        </div>
+	</div>
+
+    <div style="height:250px;">
+    </div>
+
+    <section class="contact-area" >
+        <div class="container">
+            <div class="row">
+				<div class="col-0 col-lg-3">
+				</div>
+                <div class="col-12 col-lg-6">
+                    <div class="contact-content">
+                        <div class="row">                            
+                            <div class="col-12 col-lg">
+                                <div class="contact-form-area wow fadeInUp" data-wow-delay="100ms">
+                                    <form action="{% url  'MeetingApp:sign_up'%}" method="POST" target="_self">
+                                        {% csrf_token %}
+                                        <input type="text" class="form-control" name="full_name" placeholder="Full Name" required>
+                                        <input type="text" class="form-control" name="user_name" placeholder="User Name" required>
+                                        <p style="color: red;">{{username_error}}</p>
+                                        <input type="email" class="form-control" name="email" placeholder="Email" required>
+                                        <p style="color: red;">{{email_error}}</p>
+                                        <input type="password" class="form-control" name="password1" placeholder="Password" required>
+                                        <p style="color: red;">{{error}}</p>
+                                        <input type="password" class="form-control" name="password2" placeholder="Confrim Password" required>
+                                        <p style="color: red;">{{password_error}}</p>
+                                        <button class="btn academy-btn btn-block mt-30" type="submit">Sign Up</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <script src="{% static 'MeetingApp/js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/plugins/plugins.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/active.js' %}"></script>
+</body>
+
+</html>

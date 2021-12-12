@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>MeetingApp/index</title>
+
+    <link rel="icon" href="{% static 'MeetingApp/img/core-img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'MeetingApp/style.css' %}">
+
+    <style>
+        .CLASS{
+            background-image: url("{% static 'MeetingApp/img/bg-img/pc-3.jpg' %}");
+        }
+    </style>
+</head>
+
+<body>
+ 
+    <div class="breadcumb-area " >
+        <div class="bradcumbContent">
+            <h2>Classes</h2>
+        </div>
+    </div>
+
+    <div class="top-popular-courses-area mt-20 section-padding-100-70" style="margin: 0px;padding: 50px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-center mx-auto wow fadeInUp" data-wow-delay="200ms">
+                        <a href="{% url  'MeetingApp:create_class_page' %}" class="btn academy-btn m-2">creat a class</a>
+                        <a href="{% url  'MeetingApp:join_class_page'  %}" class="btn academy-btn m-2">join a class</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                {%for uclass in classes%}
+
+                <div class="col-12 col-lg-6">
+                    <div class="single-top-popular-course d-flex align-items-center flex-wrap mb-30 wow fadeInUp" data-wow-delay="600ms">
+                        <div class="popular-course-content" >
+                            <h3>{{uclass.meeting.name}}</h3>
+                            
+                            <p>{{uclass.meeting.description}}</p>
+                            <p>your role: {{uclass.role}}</p>
+
+                            <a href="{% url  'MeetingApp:join_meeting' uclass.meeting.link  %}" class="btn academy-btn btn-sm" >Join</a> 
+						    <a href="{% url  'MeetingApp:single_meeting' uclass.meeting.link  %}"  class="btn academy-btn btn-sm">See More</a>
+                        </div>
+                        <div class="popular-course-thumb bg-img CLASS" ></div>
+                    </div>
+                </div>
+
+                {%endfor%}
+
+            </div>
+        </div>
+    </div>
+ 
+    <script src="{% static 'MeetingApp/js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/plugins/plugins.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/active.js' %}"></script>
+</body>
+
+</html>

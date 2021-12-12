@@ -1,0 +1,207 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>MeetingApp/index</title>
+
+    <link rel="icon" href="{% static 'MeetingApp/img/core-img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'MeetingApp/style.css' %}">
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+	<script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js?ver=1.4.2"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+	
+		.sidenav {
+		height: 100%;
+		width: 0;
+		position: fixed;
+		z-index: 1;
+		top: 0;
+		left: 0;
+		background-color: #61ba6d;
+		overflow-x: hidden;
+		transition: 0.5s;
+		padding-top: 60px;
+		}
+
+		.sidenav .closebtn {
+		position: absolute;
+		top: 0;
+		right: 25px;
+		font-size: 36px;
+		color:white;
+		margin-left: 50px;
+		}
+
+		#main {
+		transition: margin-left .5s;
+		padding: 16px;
+		}
+
+		@media screen and (max-height: 450px) {
+		.sidenav {padding-top: 15px;}
+		.sidenav a {font-size: 18px;}
+		}
+
+		.icon-bar {
+		width: 60px;
+		background-color: #e6e6e6;
+		position: fixed;
+		height: 100%;
+		overflow: auto;
+		
+		}
+		
+		.icon-bar a {
+		display: block;
+		text-align: center;
+		padding: 13px;
+		transition: all 0.3s ease;
+		color: #61ba6d;
+		margin-left: -16px;
+		font-size: 30px;
+		}
+		
+		.icon-bar a:hover {
+		color: #3b7a44;
+		}
+		
+		.active {
+			color:#61ba6d;
+		}
+
+		/* Add styles to the form container */
+		.form-container {
+		max-width: 300px;
+		padding: 10px;
+		background-color: #e6e6e6;
+		}
+
+		/* Full-width textarea */
+		.form-container textarea {
+		width: 100%;
+		padding: 15px;
+		margin: 5px 0 22px 0;
+		border: none;
+		background: white;
+		resize: none;
+		min-height: 100px;
+		}
+
+		/* Set a style for the submit/send button */
+		.form-container .btn {
+		background-color: #4CAF50;
+		color: white;
+		padding: 16px 20px;
+		border: none;
+		cursor: pointer;
+		width: 100%;
+		margin-bottom:10px;
+		opacity: 0.8;
+		}
+
+		/* Add a red background color to the cancel button */
+		.form-container .cancel {
+		background-color: red;
+		}
+
+		/* Add some hover effects to buttons */
+		.form-container .btn:hover, .open-button:hover {
+		opacity: 1;
+		}
+
+	</style>
+	
+	</head>
+
+	<body >
+
+		<div id="users" class="sidenav" >
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav('users')">&times;</a>
+			
+			<h5 style="background-color:#e6e6e6;padding:10px;">Teachers</h5>
+
+			{%for teacher in teachers%}
+			<div style="background-color:#e6e6e6;padding: 10px;padding-bottom:30px;border-radius: 10px;margin:15px;">
+				<p><strong>{{teacher.user.user_name}}</strong></p>
+			</div>
+			{%endfor%}
+
+			<h5 style="background-color:#e6e6e6;padding:10px;">Students</h5>
+			{%for student in students%}
+			<div style="background-color:#e6e6e6;padding: 10px;padding-bottom:30px;border-radius: 10px;margin:15px;">
+				<p><strong>{{student.user.user_name}}</strong></p>
+			</div>
+			{%endfor%}
+
+		</div>
+
+		<div id="messages" class="sidenav" >
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav('messages')">&times;</a>
+			{%for message in messages%}
+			<div style="background-color:#e6e6e6;padding: 10px;border-radius: 10px;margin:15px;">
+				<p><strong>{{message.sender_name}}</strong></p>
+				<p>{{message.content}}</p>
+
+			</div>
+			{%endfor%}
+
+		
+			<div  style="  position: sticky;bottom:0 ;left: 0;">
+				<form action="{% url  'MeetingApp:send_message' meeting.link %}" class="form-container" method="post" target="_self">
+					{% csrf_token %}
+	
+					<textarea placeholder="Type message.." name="content"></textarea>
+				
+					<button type="submit" class="btn">Send</button>
+				  </form>
+				  <form action="{% url  'MeetingApp:refresh_message' meeting.link %}" class="form-container" method="post" target="_self" style="margin-top: -10px;">
+					{% csrf_token %}
+				
+					<button type="submit" class="btn">Refresh</button>
+				  </form>
+				  </div>
+
+		</div>
+		  
+		  
+		<div id="main" class="icon-bar" >
+			<a  href="#" onclick="openNav('users')" style="font-size: 26px;"><i class="fas fa-user-friends"></i></a> 
+			<a  href="#" onclick="openNav('messages')"><i class=" fa fa-envelope"></i></a> 		
+		  </div>
+			
+		  
+	</body>
+
+	<script>
+		function openNav(id) {
+			document.getElementById("users").style.width = "0px";
+			document.getElementById("messages").style.width = "0px";
+
+			document.getElementById(id).style.width = "250px";
+			
+			document.getElementById("main").style.marginLeft = "250px";
+		}
+
+		function closeNav(id) {
+		document.getElementById(id).style.width = "0";
+		document.getElementById("main").style.marginLeft= "0";
+		}
+	</script>
+
+
+<script src="{% static 'MeetingApp/js/jquery/jquery-2.2.4.min.js' %}"></script>
+<script src="{% static 'MeetingApp/js/bootstrap/popper.min.js' %}"></script>
+<script src="{% static 'MeetingApp/js/bootstrap/bootstrap.min.js' %}"></script>
+<script src="{% static 'MeetingApp/js/plugins/plugins.js' %}"></script>
+<script src="{% static 'MeetingApp/js/active.js' %}"></script>
+
+
+</html>

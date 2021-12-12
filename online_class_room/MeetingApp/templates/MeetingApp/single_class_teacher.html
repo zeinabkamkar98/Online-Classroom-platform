@@ -1,0 +1,195 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>MeetingApp/SingleMeeting</title>
+
+	<link rel="icon" href="{% static 'MeetingApp/img/core-img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'MeetingApp/style.css' %}">
+
+    <style>
+        .CLASS{
+            background-image: url("{% static 'MeetingApp/img/bg-img/pc-3.jpg' %}");
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="breadcumb-area " style="background-color: white;height:100px;">
+        <div class="bradcumbContent">
+			<h2>{{meeting.name}}</h2>
+        </div>
+    </div>
+
+    <div class="blog-area mt-10 section-padding-100" >
+        <div class="container">
+            <div class="row" >
+                <div class="col-12 col-md-8">
+                    <div class="academy-blog-posts">
+                        <div class="row">
+
+                            <div class="col-12">
+                                <div class="single-blog-post wow fadeInUp" data-wow-delay="300ms">
+                                    <div class="blog-post-thumb mb-50">
+                                        <img src="{% static 'MeetingApp/img/blog-img/1.jpg' %}" alt="">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+					                  
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="academy-blog-sidebar">
+                        
+                        <div class="blog-post-categories mb-30">
+                            <h5>Link:</h5>
+							<p>{{meeting.link}}</p>
+                            <h5>Description:</h5>
+							<p>{{meeting.description}}</p>
+
+                        </div>
+                        <a href="{% url  'MeetingApp:join_meeting' meeting.link  %}" class="btn btn-block academy-btn btn-sm">join</a>
+                        <a href="{% url  'MeetingApp:delete_meeting' meeting.link  %}" class="btn btn-block academy-btn btn-4 btn-sm">delete class</a>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<div class="container" >
+	
+	<div class="col-12">
+		<div class="academy-tabs-content">
+		
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link " id="tab--1" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false">teachers</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" id="tab--2" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">students</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="tab--3" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="true">quizes</a>
+				</li>
+			</ul>
+			<hr>
+			
+					
+			<div class="tab-content mb-100" id="myTabContent">
+			
+				<div class="tab-pane fade" id="tab1" role="tabpanel" aria-labelledby="tab--1">
+					<div class="academy-tab-content">
+						<div class="row">
+							<a href="{% url 'MeetingApp:add_teacher_page' meeting.link %}" class="btn btn-block academy-btn m-3 btn-sm ">Add teacher</a>
+						    {%for teacher in teachers%}
+
+								<div class="col-12 col-sm-6 col-lg-3">
+									<div class="single-teachers-area text-center mb-100 wow fadeInUp" data-wow-delay="400ms">
+										<div class="teachers-thumbnail">
+											<img src="{% static 'MeetingApp/img/bg-img/tea1.jpg' %}" alt="">
+										</div>
+										<div class="teachers-info mt-30">
+											<h5>{{teacher.user.full_name}}</h5>
+											<span>{{teacher.user.email}}</span>
+											<a href="{% url 'MeetingApp:delete_teacher' meeting.link teacher.user.user_name %}" class="btn btn-block academy-btn btn-sm btn-4" style="margin-top: 2px;">Delete</a>
+
+										</div>
+
+									</div>
+								</div>
+
+							{%endfor%}
+						
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="tab-pane fade show active" id="tab2" role="tabpanel" aria-labelledby="tab--2">
+					<div class="academy-tab-content">						
+						<div class="row">
+							<a href="{% url 'MeetingApp:add_student_page' meeting.link %}" class="btn btn-block academy-btn m-3 btn-sm ">Add Student</a>
+
+						    {%for student in students%}
+
+								<div class="col-12 col-sm-6 col-lg-3">
+									<div class="single-teachers-area text-center mb-100 wow fadeInUp" data-wow-delay="400ms">
+										<div class="teachers-thumbnail">
+											<img src="{% static 'MeetingApp/img/bg-img/tea1.jpg' %}" alt="">
+										</div>
+										<div class="teachers-info mt-30">
+											<h5>{{student.user.full_name}}</h5>
+											<span>{{student.user.email}}</span>
+											<a href="{% url 'MeetingApp:delete_student' meeting.link  student.user.user_name %}" class="btn btn-block academy-btn btn-sm btn-4" style="margin-top: 2px;">Delete</a>
+
+										</div>
+									</div>
+								</div>
+
+							{%endfor%}
+							
+								
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab--3">
+					<div class="academy-tab-content">
+						<div class="row">
+							<a href="{% url 'MeetingApp:add_quiz_page' meeting.link %}" class="btn btn-block academy-btn m-3 btn-sm ">Add Quize</a>
+
+						    {%for quiz in quizes %}
+
+							<div class="col-12 col-lg-4">
+								<div class="single-course-area d-flex align-items-center mb-100 bg-light " style=" padding:30px;">
+									
+									<div class="course-content">
+										<h4>{{quiz.name}}</h4>
+										<p>Begin: {{quiz.begin}}</p>
+										<p>End: {{quiz.end}}</p>
+
+										<p>Active: {{quiz.status}}</p>
+										</br>
+										<a href="{% url 'MeetingApp:change_status' quiz.name %}" class="btn academy-btn btn-sm" > Change Status</a>                           
+										<a href="{% url 'MeetingApp:quiz_result' quiz.name %}" class="btn academy-btn btn-sm"> Show Result  </a>
+										<a href="{% url 'MeetingApp:delete_quiz' meeting.link quiz.name %}" class="btn btn-block academy-btn btn-sm btn-4" style="margin-top: 2px;">Delete</a>
+
+									</div>
+									
+								</div>
+							</div>
+							{%endfor%}
+										
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	</div>
+  
+
+    <script src="{% static 'MeetingApp/js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/plugins/plugins.js' %}"></script>
+	<script src="{% static 'MeetingApp/js/active.js' %}"></script>
+	
+</body>
+
+</html>

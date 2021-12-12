@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>MeetingApp/index</title>
+
+    <link rel="icon" href="{% static 'MeetingApp/img/core-img/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'MeetingApp/style.css' %}">
+
+</head>
+
+
+
+<body >
+
+    <div class="breadcumb-area " >
+        <div class=" bradcumbContent">
+            <h2>Create Class</h2>
+        </div>
+	</div>
+
+    <div style="height:300px;">
+    </div>
+
+    <section class="contact-area">
+        <div class="container">
+            <div class="row">
+				<div class="col-0 col-lg-3">
+				</div>
+                <div class="col-12 col-lg-6">
+                    <div class="contact-content">
+                        <div class="row">                            
+                            <div class="col-12 col-lg">
+                                <div class="contact-form-area wow fadeInUp" data-wow-delay="500ms">
+                                    <form action="{% url 'MeetingApp:create_class' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="text" class="form-control" name="name" placeholder="class name" required>
+                                        <textarea type="text" class="form-control" name="description" placeholder="descibe your class and it's date and time." required></textarea>
+                                        <button class="btn academy-btn mt-30" type="submit">create</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="{% static 'MeetingApp/js/jquery/jquery-2.2.4.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/plugins/plugins.js' %}"></script>
+    <script src="{% static 'MeetingApp/js/active.js' %}"></script>
+</body>
+
+</html>
